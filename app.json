@@ -1,0 +1,56 @@
+$(document).ready(function(){
+    // Charger le menu avec AJAX
+    $.ajax({
+        url: 'menu.json',
+        method: 'GET',
+        dataType: 'json',
+        success: function(data) {
+            var menuList = $('#menu-list');
+            $.each(data, function(index, item) {
+                menuList.append(`
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h5 class="card-title">${item.name}</h5>
+                                <p class="card-text">${item.price}</p>
+                            </div>
+                        </div>
+                    </div>
+                `);
+            });
+        },
+        error: function(error) {
+            console.log("Erreur lors du chargement du menu", error);
+        }
+    });
+
+    // Envoyer le formulaire de contact
+    $('#contactForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Récupérer les données du formulaire
+        const formData = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            message: $('#message').val()
+        };
+
+        // Envoyer les données au serveur (simulé avec Fetch)
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Message envoyé avec succès !');
+            $('#contactForm')[0].reset(); // Réinitialiser le formulaire
+        })
+        .catch(error => {
+            console.error('Erreur:', error);
+            alert('Erreur lors de l\'envoi du message.');
+        });
+    });
+});

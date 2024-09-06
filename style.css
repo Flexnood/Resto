@@ -1,0 +1,12 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+#home {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+}
+
+#menu h2, #contact h2 {
+    margin-bottom: 2rem;
+}
